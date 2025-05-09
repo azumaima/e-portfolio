@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}ホーム{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">eポートフォリオシステムへようこそ</h1>
+    <p class="lead">このシステムでは、学生は活動記録を、教員は実績記録を登録・閲覧できます。</p>
+    <hr class="my-4">
+    {% if current_user.is_authenticated %}
+        <p>こんにちは、{{ current_user.username }}さん！</p>
+        {% if current_user.role == '学生' %}
+            <a class="btn btn-primary btn-lg" href="{{ url_for('student') }}" role="button">活動記録へ</a>
+        {% elif current_user.role == '教員' %}
+            <a class="btn btn-primary btn-lg" href="{{ url_for('faculty') }}" role="button">実績記録へ</a>
+        {% endif %}
+    {% else %}
+        <p>ログインまたは登録してシステムを利用してください。</p>
+        <a class="btn btn-primary btn-lg" href="{{ url_for('login') }}" role="button">ログイン</a>
+        <a class="btn btn-secondary btn-lg" href="{{ url_for('register') }}" role="button">登録</a>
+    {% endif %}
+
+    <!-- ここにボタンを追加 -->
+    {% if current_user.is_authenticated %}
+        <!-- 学生の場合 -->
+        {% if current_user.role == '学生' %}
+            <a href="{{ url_for('student') }}" class="btn btn-primary mt-3">活動記録ページへ</a>
+
+        <!-- 教員の場合 -->
+        {% elif current_user.role == '教員' %}
+            <a href="{{ url_for('faculty') }}" class="btn btn-primary mt-3">実績記録ページへ</a>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

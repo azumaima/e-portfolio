@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}活動記録{% endblock %}
+
+{% block content %}
+<h2>活動記録</h2>
+<form method="POST" action="{{ url_for('student') }}">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.activity.label(class="form-control-label") }}
+        {{ form.activity(class="form-control", rows="3") }}
+    </div>
+    <div class="form-group">
+        {{ form.days_spent.label(class="form-control-label") }}
+        {{ form.days_spent(class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary">記録</button>
+</form>
+{% endblock %}

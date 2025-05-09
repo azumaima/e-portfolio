@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">eポートフォリオシステム</a>
+    <ul class="navbar-nav ml-auto">
+        {% if current_user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">ホーム</a></li>
+            {% if current_user.role == '学生' %}
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('student') }}">活動記録</a></li>
+            {% elif current_user.role == '教員' %}
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('faculty') }}">実績記録</a></li>
+            {% endif %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('view_data') }}">データ閲覧</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">ログアウト</a></li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">ログイン</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">登録</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<div class="container">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

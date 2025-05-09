@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}データ閲覧{% endblock %}
+
+{% block content %}
+<h2>活動記録</h2>
+<ul class="list-group">
+    {% for activity in activities.values() %}
+    <li class="list-group-item">
+        <strong>{{ activity.user }}:</strong> {{ activity.content }} ({{ activity.days }} 日間)
+    </li>
+    {% endfor %}
+</ul>
+
+<h2>実績記録</h2>
+<ul class="list-group">
+    {% for achievement in achievements.values() %}
+    <li class="list-group-item">
+        <strong>{{ achievement.user }}:</strong> {{ achievement.content }}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

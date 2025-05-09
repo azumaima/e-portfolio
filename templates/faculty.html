@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}実績記録{% endblock %}
+
+{% block content %}
+<h2>実績記録</h2>
+<form method="POST" action="{{ url_for('faculty') }}">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.achievement.label(class="form-control-label") }}
+        {{ form.achievement(class="form-control", rows="3") }}
+    </div>
+    <button type="submit" class="btn btn-primary">記録</button>
+</form>
+{% endblock %}
